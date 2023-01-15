@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/auth")
-@CrossOrigin(origins = "https://bayoucountry.nl:4200")
+@CrossOrigin(origins = "http://bayoucountry.nl")
 public class AuthenticationController {
 
     private final UserRepository userRepository;
