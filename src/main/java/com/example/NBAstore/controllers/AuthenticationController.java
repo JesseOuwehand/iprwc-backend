@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://bayoucountry.nl")
 public class AuthenticationController {
 
     private final UserRepository userRepository;
