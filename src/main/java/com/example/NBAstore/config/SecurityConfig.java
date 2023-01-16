@@ -29,7 +29,6 @@ public class SecurityConfig {
         this.userService = userService;
     }
 
-    // TODO Check alle auths! (/** heeft voorang op /add bijv.)
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

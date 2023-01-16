@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/category")
-@CrossOrigin(origins = "https://bayoucountry.nl")
 public class CategoryController {
 
     private final CategoryService categoryService;

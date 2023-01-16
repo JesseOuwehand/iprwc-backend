@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/product")
-@CrossOrigin(origins = "https://bayoucountry.nl")
 public class ProductController {
 
     private final ProductService productService;
