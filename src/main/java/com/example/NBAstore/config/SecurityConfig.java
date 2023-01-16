@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,15 +39,14 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login").permitAll()
-                .requestMatchers("/api/v1/product/").permitAll()
-                .requestMatchers("/api/v1/category/**").permitAll()
-                .requestMatchers("/api/v1/category/add").hasRole("ADMIN")
-                .requestMatchers("/api/v1/product/**").permitAll()
-                .requestMatchers("/api/v1/product/add").hasRole("ADMIN")
-                .requestMatchers("/api/v1/user/info").permitAll()
-                .requestMatchers("/api/v1/cart").hasRole("ADMIN")
-                .requestMatchers("/api/v1/cart/add").hasRole("ADMIN")
-                .requestMatchers("/api/v1/cart/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/category/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/category/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "api/v1/category/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/product/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/product/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "api/v1/product/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/user/info").hasAnyRole("ADMIN", "USER")
+                .requestMatchers("/api/v1/cart/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .userDetailsService(userService)
                 .exceptionHandling()
