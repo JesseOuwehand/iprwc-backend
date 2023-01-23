@@ -1,11 +1,12 @@
 package com.example.NBAstore.controllers;
-
 import com.example.NBAstore.config.JwtUtil;
 import com.example.NBAstore.enums.Role;
 import com.example.NBAstore.exceptions.UserAlreadyExistsException;
 import com.example.NBAstore.models.LoginCredentials;
+import com.example.NBAstore.models.ShoppingCart;
 import com.example.NBAstore.models.User;
 import com.example.NBAstore.repositories.UserRepository;
+import com.example.NBAstore.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,25 +21,27 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/auth")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final ShoppingCartService shoppingCartService;
 
     @Autowired
     public AuthenticationController(
             UserRepository userRepository,
             JwtUtil jwtUtil,
             AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            ShoppingCartService shoppingCartService
     ) {
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
+        this.shoppingCartService = shoppingCartService;
     }
 
     @PostMapping("/register")
@@ -58,6 +61,8 @@ public class AuthenticationController {
         user.setPassword(encodedPassword);
         user = userRepository.save(user);
         String token = jwtUtil.generateToken(user.getEmail());
+        ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(user);
+
         return Collections.singletonMap("token", token);
     }
 

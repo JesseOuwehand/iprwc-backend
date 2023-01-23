@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/product")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 
     private final ProductService productService;
@@ -40,6 +39,7 @@ public class ProductController {
         return productService.updateProduct(productDto);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{productId}")
     public void deleteProduct(@PathVariable("productId") Integer productId) { productService.deleteProduct(productId); }
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/category")
-@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -39,6 +38,7 @@ public class CategoryController {
         return categoryService.updateCategory(category);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{categoryId}")
     public void deleteCategory(@PathVariable("categoryId") Integer categoryId) { categoryService.deleteCategory(categoryId); }
 }

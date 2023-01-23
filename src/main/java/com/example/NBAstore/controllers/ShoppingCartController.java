@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/cart")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
@@ -35,6 +34,14 @@ public class ShoppingCartController {
         return shoppingCartService.addItemToCart(cartItemDto, user);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/clear")
+    public void clearShoppingCart() {
+        User user = authenticationService.getAuthenticatedUser();
+        shoppingCartService.clearShoppingCart(user);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{cartItemId}")
     public void deleteFromCart(@PathVariable("cartItemId") Integer cartItemId) {
         shoppingCartService.deleteFromCart(cartItemId);
