@@ -34,14 +34,14 @@ public class ShoppingCartController {
         return shoppingCartService.addItemToCart(cartItemDto, user);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://bayoucountry.nl")
     @DeleteMapping("/clear")
     public void clearShoppingCart() {
         User user = authenticationService.getAuthenticatedUser();
         shoppingCartService.clearShoppingCart(user);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://bayoucountry.nl")
     @DeleteMapping("/{cartItemId}")
     public void deleteFromCart(@PathVariable("cartItemId") Integer cartItemId) {
         shoppingCartService.deleteFromCart(cartItemId);
