@@ -38,6 +38,7 @@ public class CategoryController {
         return categoryService.updateCategory(category);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{categoryId}")
     public void deleteCategory(@PathVariable("categoryId") Integer categoryId) { categoryService.deleteCategory(categoryId); }
 }

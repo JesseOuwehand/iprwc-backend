@@ -11,6 +11,7 @@ import com.example.NBAstore.repositories.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,5 +56,13 @@ public class ShoppingCartService {
 
     public void deleteFromCart(Integer cartItemId) {
         cartItemRepository.deleteById(cartItemId);
+    }
+    
+    public void clearShoppingCart(User user) {
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUser(user).get();
+        List<CartItem> cartItems = shoppingCart.getCartItems();
+        for (CartItem cartItem : cartItems) {
+            cartItemRepository.delete(cartItem);
+        }
     }
 }
